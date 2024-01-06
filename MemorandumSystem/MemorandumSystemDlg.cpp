@@ -59,12 +59,14 @@ CMemorandumSystemDlg::CMemorandumSystemDlg(CWnd* pParent /*=nullptr*/)
 void CMemorandumSystemDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_LIST1, m_list);
 }
 
 BEGIN_MESSAGE_MAP(CMemorandumSystemDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_BUTTON1, &CMemorandumSystemDlg::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -153,3 +155,9 @@ HCURSOR CMemorandumSystemDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CMemorandumSystemDlg::OnBnClickedButton1()
+{
+	// TODO: 在此添加控件通知处理程序代码
+}
