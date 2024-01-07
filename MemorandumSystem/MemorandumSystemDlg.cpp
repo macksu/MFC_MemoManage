@@ -102,6 +102,18 @@ BOOL CMemorandumSystemDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
+	//设置listCtrl风格
+	DWORD dwStyle = m_list.GetExtendedStyle();
+	dwStyle |= LVS_EX_FULLROWSELECT;	//选中某行使整行高亮（只适用与report风格的ListCtrl） 
+	dwStyle |= LVS_EX_GRIDLINES;	   //网格线（只适用与report风格的ListCtrl） 
+	m_list.SetExtendedStyle(dwStyle); //设置扩展风格 
+
+	m_list.InsertColumn(0, TEXT("编号"), 0, 150);
+	m_list.InsertColumn(1, TEXT("姓氏"), 0, 150);
+	m_list.InsertColumn(2, TEXT("名字"), 0, 150);
+	m_list.InsertColumn(3, TEXT("日期"), 0, 150);
+	m_list.InsertColumn(4, TEXT("内容"), 0, 300);
+
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -158,6 +170,40 @@ HCURSOR CMemorandumSystemDlg::OnQueryDragIcon()
 
 
 void CMemorandumSystemDlg::OnBnClickedButton1()
+{ 
+	 // 设置过滤器   
+	TCHAR szFilter[] = _T("文本文件(*.txt)|*.txt|所有文件(*.*)|*.*||");
+	// 构造打开文件对话框   
+	CFileDialog fileDlg(TRUE, _T("txt"), NULL, 0, szFilter, this);
+	CString strFilePath;
+	// 显示打开文件对话框   
+	if (IDOK == fileDlg.DoModal())
+	{
+		// 如果点击了文件对话框上的“打开”按钮，则将选择的文件路径显示到编辑框里   
+		strFilePath = fileDlg.GetPathName();
+		dataInterface.Open(strFilePath);
+		UpdateList();
+		MessageBox(TEXT("123"));
+      
+	}
+
+}
+
+void CMemorandumSystemDlg::UpdateList()
 {
-	// TODO: 在此添加控件通知处理程序代码
+	m_list.DeleteAllItems();  //清除所有行
+	CString str;
+	for (int i = 0; i < dataInterface.Info.size(); i++) {
+		str.Format(TEXT("%d"), dataInterface.Info[i].m_id);
+		m_list.InsertItem(i, str);
+		str.Format(TEXT("%s"), dataInterface.Info[i].m_lastname);
+		m_list.SetItemText(i, 1, dataInterface.Info[i].m_lastname.c_str());
+		str.Format(TEXT("%s"), dataInterface.Info[i].m_firstname);
+		m_list.SetItemText(i, 2, dataInterface.Info[i].m_firstname.c_str());
+		str.Format(TEXT("%s"), dataInterface.Info[i].m_date);
+		m_list.SetItemText(i, 3, dataInterface.Info[i].m_date.c_str());
+		str.Format(TEXT("%s"), dataInterface.Info[i].m_content);
+		m_list.SetItemText(i, 4, dataInterface.Info[i].m_content.c_str());
+	}
+
 }

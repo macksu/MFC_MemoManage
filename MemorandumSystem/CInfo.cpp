@@ -14,3 +14,12 @@ CInfo::CInfo(int id, string lastname, string firstname, string date, string cont
 	this->m_content = content;
 
 }
+
+void CInfo::Load(ifstream& in)
+{
+	in >> m_id;
+	in >> m_lastname;
+	in >> m_firstname;
+	in >> m_date;
+	in >> m_content;
+}

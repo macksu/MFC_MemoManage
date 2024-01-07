@@ -1,7 +1,7 @@
 ﻿
 // MemorandumSystemDlg.h: 头文件
 //
-
+#include "CDdataInterface.h"
 #pragma once
 
 
@@ -33,5 +33,8 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	CListCtrl m_list;
+	CString strFilePath;
+	CDdataInterface dataInterface;
 	afx_msg void OnBnClickedButton1();
+	void UpdateList();
 };
