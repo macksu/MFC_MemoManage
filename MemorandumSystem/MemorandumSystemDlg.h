@@ -37,4 +37,5 @@ public:
 	CDdataInterface dataInterface;
 	afx_msg void OnBnClickedButton1();
 	void UpdateList();
+	afx_msg void OnBnClickedButton4();
 };

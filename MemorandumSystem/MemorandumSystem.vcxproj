@@ -184,6 +184,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CDdataInterface.h" />
+    <ClInclude Include="ChidDlg.h" />
     <ClInclude Include="CInfo.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MemorandumSystem.h" />
@@ -194,6 +195,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CDdataInterface.cpp" />
+    <ClCompile Include="ChidDlg.cpp" />
     <ClCompile Include="CInfo.cpp" />
     <ClCompile Include="MemorandumSystem.cpp" />
     <ClCompile Include="MemorandumSystemDlg.cpp" />

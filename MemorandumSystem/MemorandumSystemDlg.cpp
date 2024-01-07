@@ -8,6 +8,8 @@
 #include "MemorandumSystemDlg.h"
 #include "afxdialogex.h"
 
+#include "ChidDlg.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -67,6 +69,7 @@ BEGIN_MESSAGE_MAP(CMemorandumSystemDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON1, &CMemorandumSystemDlg::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_BUTTON4, &CMemorandumSystemDlg::OnBnClickedButton4)
 END_MESSAGE_MAP()
 
 
@@ -206,4 +209,12 @@ void CMemorandumSystemDlg::UpdateList()
 		m_list.SetItemText(i, 4, dataInterface.Info[i].m_content.c_str());
 	}
 
+}
+
+
+void CMemorandumSystemDlg::OnBnClickedButton4()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	ChidDlg childDlg;
+	childDlg.DoModal();
 }
