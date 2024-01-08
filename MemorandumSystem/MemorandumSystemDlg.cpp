@@ -70,6 +70,8 @@ BEGIN_MESSAGE_MAP(CMemorandumSystemDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON1, &CMemorandumSystemDlg::OnBnClickedButton1)
 	ON_BN_CLICKED(IDC_BUTTON4, &CMemorandumSystemDlg::OnBnClickedButton4)
+	ON_BN_CLICKED(IDC_BUTTON3, &CMemorandumSystemDlg::OnBnClickedButton3)
+	ON_BN_CLICKED(IDC_BUTTON6, &CMemorandumSystemDlg::OnBnClickedButton6)
 END_MESSAGE_MAP()
 
 
@@ -186,7 +188,6 @@ void CMemorandumSystemDlg::OnBnClickedButton1()
 		strFilePath = fileDlg.GetPathName();
 		dataInterface.Open(strFilePath);
 		UpdateList();
-		MessageBox(TEXT("123"));
       
 	}
 
@@ -216,5 +217,64 @@ void CMemorandumSystemDlg::OnBnClickedButton4()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	ChidDlg childDlg;
-	childDlg.DoModal();
+	if (IDOK == childDlg.DoModal()) {
+		CInfo Info( atoi(childDlg.m_id),childDlg.m_lastname.GetBuffer(), childDlg.m_firstname.GetBuffer(), childDlg.m_date.GetBuffer(), childDlg.m_content.GetBuffer());
+		dataInterface.Add(Info);
+		UpdateList();
+	}
+}
+
+
+void CMemorandumSystemDlg::OnBnClickedButton3()
+{
+	// TODO: 在此添加控件通知处理程序代码
+    int index = m_list.GetSelectionMark();
+
+	if (index > -1) {
+		UINT i;
+		i = MessageBox(_T("确定删除这条记录吗？"), _T("提示"), MB_YESNO | MB_ICONQUESTION);
+		if (i == IDYES) {
+			dataInterface.Del(index);
+			MessageBox(TEXT("删除成功"), TEXT("提示"));
+			UpdateList();
+		}
+		else {
+			return;
+		}
+	
+	}
+	else {
+		MessageBox(TEXT("请先点击列表选择需要删除的记录"), TEXT("提示"));
+	}
+}
+
+
+void CMemorandumSystemDlg::OnBnClickedButton6()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	int index = m_list.GetSelectionMark();
+	if (index > -1) {
+		ChidDlg childDlg;
+		CString str;
+		str.Format(TEXT("%d"), dataInterface.Info[index].m_id);
+		childDlg.m_id = str;
+		str.Format(TEXT("%s"), dataInterface.Info[index].m_lastname.c_str());
+		childDlg.m_lastname = str;
+		str.Format(TEXT("%s"), dataInterface.Info[index].m_firstname.c_str());
+		childDlg.m_firstname = str;
+		str.Format(TEXT("%s"), dataInterface.Info[index].m_date.c_str());
+		childDlg.m_date = str;
+		str.Format(TEXT("%s"), dataInterface.Info[index].m_content.c_str());
+		childDlg.m_content = str;
+		if (IDOK == childDlg.DoModal()) {
+			CInfo Info(atoi(childDlg.m_id), childDlg.m_lastname.GetBuffer(), childDlg.m_firstname.GetBuffer(), childDlg.m_date.GetBuffer(), childDlg.m_content.GetBuffer());
+			dataInterface.Amend(index,Info);
+			UpdateList();
+		}
+
+
+	}
+	else {
+		MessageBox(TEXT("请先点击列表选择需要修改的记录"), TEXT("提示"));
+	}
 }

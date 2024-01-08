@@ -38,4 +38,6 @@ public:
 	afx_msg void OnBnClickedButton1();
 	void UpdateList();
 	afx_msg void OnBnClickedButton4();
+	afx_msg void OnBnClickedButton3();
+	afx_msg void OnBnClickedButton6();
 };

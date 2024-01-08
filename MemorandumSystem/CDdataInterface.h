@@ -4,9 +4,9 @@ class CDdataInterface
 {
 public:
 	bool Open(CString FilePath);
-	void Add(CInfo Info);
+	void Add(CInfo MyInfo);
 	void Del(int index);
-	void Amend(int index,CInfo Info);
+	void Amend(int index,CInfo MyInfo);
 	CInfo Find(int id);
 	bool Save();
 

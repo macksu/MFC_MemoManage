@@ -40,6 +40,7 @@ void ChidDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(ChidDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON1, &ChidDlg::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_BUTTON2, &ChidDlg::OnBnClickedButton2)
 END_MESSAGE_MAP()
 
 
@@ -55,7 +56,14 @@ void ChidDlg::OnBnClickedButton1()
 		MessageBox(TEXT("您输入有空，请补充完整"),TEXT("提示"));
 	}
 	else {
-		MB_OK();
+		OnOK();
 		return;
 	}
+}
+
+
+void ChidDlg::OnBnClickedButton2()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	EndDialog(0);
 }

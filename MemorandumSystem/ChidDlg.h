@@ -29,4 +29,5 @@ public:
 	CString m_content;
 	afx_msg void OnBnClickedButton1();
 
+	afx_msg void OnBnClickedButton2();
 };

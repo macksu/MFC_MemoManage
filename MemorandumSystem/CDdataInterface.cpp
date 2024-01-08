@@ -17,3 +17,23 @@ bool CDdataInterface::Open(CString FilePath)
 	}
 	return false;
 }
+
+void CDdataInterface::Add(CInfo MyInfo)
+{
+	Info.push_back(MyInfo);
+}
+
+void CDdataInterface::Del(int index)
+{
+	Info.erase(Info.begin() + index);
+}
+
+void CDdataInterface::Amend(int index, CInfo MyInfo)
+{
+	Info[index] = MyInfo;
+}
+
+CInfo CDdataInterface::Find(int id)
+{
+	return CInfo();
+}
