@@ -35,5 +35,23 @@ void CDdataInterface::Amend(int index, CInfo MyInfo)
 
 CInfo CDdataInterface::Find(int id)
 {
-	return CInfo();
+	for (int i = 0; i < Info.size(); i++) {
+		if (Info[i].m_id == id); return Info[i];
+	}
+	return CInfo(-1, TEXT(""), TEXT(""), TEXT(""), TEXT(""));
+}
+
+bool CDdataInterface::Save(CString FilePath)
+{
+	ofstream out(FilePath, ios::out);
+	if (out.is_open()) {
+		out << Info.size() << endl;
+		for (int i = 0; i < Info.size(); i++) {
+			Info[i].Save(out);
+		}
+		out.close();
+		return true;
+	}
+	
+	return false;
 }

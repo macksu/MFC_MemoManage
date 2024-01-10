@@ -54,6 +54,7 @@ END_MESSAGE_MAP()
 
 CMemorandumSystemDlg::CMemorandumSystemDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_MEMORANDUMSYSTEM_DIALOG, pParent)
+	, m_find(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -62,6 +63,7 @@ void CMemorandumSystemDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LIST1, m_list);
+	DDX_Text(pDX, IDC_EDIT1, m_find);
 }
 
 BEGIN_MESSAGE_MAP(CMemorandumSystemDlg, CDialogEx)
@@ -72,6 +74,9 @@ BEGIN_MESSAGE_MAP(CMemorandumSystemDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON4, &CMemorandumSystemDlg::OnBnClickedButton4)
 	ON_BN_CLICKED(IDC_BUTTON3, &CMemorandumSystemDlg::OnBnClickedButton3)
 	ON_BN_CLICKED(IDC_BUTTON6, &CMemorandumSystemDlg::OnBnClickedButton6)
+	ON_BN_CLICKED(IDC_BUTTON5, &CMemorandumSystemDlg::OnBnClickedButton5)
+	ON_BN_CLICKED(IDC_BUTTON2, &CMemorandumSystemDlg::OnBnClickedButton2)
+	ON_BN_CLICKED(IDC_BUTTON7, &CMemorandumSystemDlg::OnBnClickedButton7)
 END_MESSAGE_MAP()
 
 
@@ -276,5 +281,48 @@ void CMemorandumSystemDlg::OnBnClickedButton6()
 	}
 	else {
 		MessageBox(TEXT("请先点击列表选择需要修改的记录"), TEXT("提示"));
+	}
+}
+
+
+void CMemorandumSystemDlg::OnBnClickedButton5()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	UpdateData(TRUE);
+	CInfo FindInfo=dataInterface.Find(atoi(m_find));
+	if (FindInfo.m_id == -1) {
+		MessageBox(TEXT("查无记录"), TEXT("提示"));
+
+	}
+	else {
+		CString str;
+		str.Format(TEXT("查找成功！\n\n编号:%d\n姓氏:%s\n名字:%s\n时间:%s\n事务内容:%s"),
+			FindInfo.m_id, FindInfo.m_lastname.c_str(), FindInfo.m_firstname.c_str(), FindInfo.m_date.c_str(), FindInfo.m_content.c_str());
+		MessageBox(str, TEXT("提示"));
+
+	}
+
+}
+
+
+void CMemorandumSystemDlg::OnBnClickedButton2()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	if(dataInterface.Save(strFilePath)) MessageBox(TEXT("保存成功"), TEXT("提示"));
+	else MessageBox(TEXT("保存失败"), TEXT("提示"));
+	
+}
+
+
+void CMemorandumSystemDlg::OnBnClickedButton7()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	UINT i;
+	i = MessageBox(_T("确定要退出吗？"), _T("提示"), MB_YESNO | MB_ICONQUESTION);
+	if (i == IDYES) {
+		exit(0);
+	}
+	else {
+		return;
 	}
 }

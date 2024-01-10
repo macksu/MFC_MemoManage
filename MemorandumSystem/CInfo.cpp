@@ -23,3 +23,12 @@ void CInfo::Load(ifstream& in)
 	in >> m_date;
 	in >> m_content;
 }
+
+void CInfo::Save(ofstream& out)
+{
+	out << m_id << "\t";
+	out << m_lastname << "\t";
+	out << m_firstname << "\t";
+	out << m_date << "\t";
+	out << m_content << "\n";
+}

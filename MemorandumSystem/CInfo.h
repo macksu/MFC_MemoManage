@@ -8,7 +8,7 @@ public:
 	CInfo(int m_id, string m_lastname, string m_firstname, string m_date, string m_content);
 
 	void Load(ifstream &in);
-
+	void Save(ofstream &out);
 	int m_id;
 	string m_lastname;
 	string m_firstname;

@@ -8,7 +8,7 @@ public:
 	void Del(int index);
 	void Amend(int index,CInfo MyInfo);
 	CInfo Find(int id);
-	bool Save();
+	bool Save(CString FilePath);
 
 	vector<CInfo> Info;
 };
