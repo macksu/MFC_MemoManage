@@ -124,7 +124,7 @@ BOOL CMemorandumSystemDlg::OnInitDialog()
 	m_list.InsertColumn(3, TEXT("日期"), 0, 150);
 	m_list.InsertColumn(4, TEXT("内容"), 0, 300);
 
-
+	isopen = false;
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -192,6 +192,7 @@ void CMemorandumSystemDlg::OnBnClickedButton1()
 		// 如果点击了文件对话框上的“打开”按钮，则将选择的文件路径显示到编辑框里   
 		strFilePath = fileDlg.GetPathName();
 		dataInterface.Open(strFilePath);
+		isopen = true;
 		UpdateList();
       
 	}
@@ -221,12 +222,18 @@ void CMemorandumSystemDlg::UpdateList()
 void CMemorandumSystemDlg::OnBnClickedButton4()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	ChidDlg childDlg;
-	if (IDOK == childDlg.DoModal()) {
-		CInfo Info( atoi(childDlg.m_id),childDlg.m_lastname.GetBuffer(), childDlg.m_firstname.GetBuffer(), childDlg.m_date.GetBuffer(), childDlg.m_content.GetBuffer());
-		dataInterface.Add(Info);
-		UpdateList();
+	if (isopen) {
+		ChidDlg childDlg;
+		if (IDOK == childDlg.DoModal()) {
+			CInfo Info(atoi(childDlg.m_id), childDlg.m_lastname.GetBuffer(), childDlg.m_firstname.GetBuffer(), childDlg.m_date.GetBuffer(), childDlg.m_content.GetBuffer());
+			dataInterface.Add(Info);
+			UpdateList();
+		}
 	}
+	else {
+		MessageBox(TEXT("请先打开文件"), TEXT("提示"));
+	}
+	
 }
 
 
@@ -308,8 +315,13 @@ void CMemorandumSystemDlg::OnBnClickedButton5()
 void CMemorandumSystemDlg::OnBnClickedButton2()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	if(dataInterface.Save(strFilePath)) MessageBox(TEXT("保存成功"), TEXT("提示"));
-	else MessageBox(TEXT("保存失败"), TEXT("提示"));
+	if (isopen) {
+		if (dataInterface.Save(strFilePath)) MessageBox(TEXT("保存成功"), TEXT("提示"));
+		else MessageBox(TEXT("保存失败"), TEXT("提示"));
+	}
+	else {
+		MessageBox(TEXT("请先打开文件"), TEXT("提示"));
+	}
 	
 }
 

@@ -44,4 +44,6 @@ public:
 	afx_msg void OnBnClickedButton5();
 	afx_msg void OnBnClickedButton2();
 	afx_msg void OnBnClickedButton7();
+
+	bool isopen;
 };
